@@ -22,7 +22,7 @@
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{font-family:var(--sans);background:var(--cream);color:var(--text);line-height:1.95;font-size:16px;-webkit-font-smoothing:antialiased}
+body{font-family:var(--sans);background:var(--cream);color:var(--text);line-height:1.85;font-size:16px;-webkit-font-smoothing:antialiased}
 ::selection{background:var(--gold);color:var(--green-deep)}
 img{display:block;max-width:100%}
 .wrap{max-width:740px;margin:0 auto;padding:0 22px}
@@ -30,7 +30,7 @@ img{display:block;max-width:100%}
 .hero{background:var(--green-deep);color:var(--white);padding:56px 0 50px;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;opacity:.05;background-image:linear-gradient(var(--gold) 1px,transparent 1px),linear-gradient(90deg,var(--gold) 1px,transparent 1px);background-size:60px 60px}
 .hero-inner{position:relative}
-.logo-w{width:240px;max-width:64%;filter:brightness(0) invert(1);margin-bottom:26px}
+.logo-w{width:205px;max-width:56%;filter:brightness(0) invert(1);margin-bottom:24px}
 .kicker{font-family:var(--display);color:var(--gold);letter-spacing:.3em;font-size:13px;text-transform:uppercase;margin-bottom:16px}
 h1{font-family:var(--serif);font-weight:700;font-size:clamp(23px,4.3vw,33px);line-height:1.55;color:#fff}
 h1 .pt{color:var(--gold)}
@@ -86,6 +86,48 @@ h1 .pt{color:var(--gold)}
   .pull{padding:22px 22px}
   .chart-overlay{position:static;max-width:100%;margin-bottom:10px;background:var(--cream-warm);padding:10px 12px;border-radius:4px}
 }
+
+/* 算式ボックス（最重要・特別扱い） */
+.fig-hero{border:2px solid var(--gold);box-shadow:0 6px 28px rgba(0,73,44,0.10)}
+.fig-hero .fig-t{font-size:16.5px}
+.formula-row{display:flex;align-items:stretch;gap:9px;flex-wrap:wrap;margin-top:4px}
+.formula-step{flex:1;min-width:110px;background:var(--cream-warm);border-radius:6px;padding:14px 10px;text-align:center}
+.formula-step .fs-cap{font-size:11px;color:var(--text-light)}
+.formula-step .fs-big{font-family:var(--display);font-size:27px;font-weight:600;color:var(--green);line-height:1.1;margin:3px 0}
+.formula-step .fs-sub{font-size:10.5px;color:var(--text-mid);line-height:1.5}
+.formula-step.gold{background:linear-gradient(135deg,var(--green),var(--green-mid))}
+.formula-step.gold .fs-big{color:var(--gold)}
+.formula-step.gold .fs-cap,.formula-step.gold .fs-sub{color:var(--gold-pale)}
+.formula-op{display:flex;align-items:center;font-family:var(--display);font-size:22px;color:var(--gold);font-weight:600}
+/* シナリオ表 */
+.scn{margin:22px 0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.scn table{width:100%;border-collapse:collapse;font-size:13px;min-width:460px}
+.scn th,.scn td{padding:9px 12px;border-bottom:1px solid var(--gold-border);text-align:left;white-space:nowrap}
+.scn thead th{background:var(--green);color:var(--gold-pale);font-weight:500}
+.scn thead th.main{background:var(--green-deep);color:var(--gold)}
+.scn td.lbl{font-weight:600;color:var(--text-mid)}
+.scn td.main{background:var(--gold-glow);font-weight:700;color:var(--green)}
+.scn-note{font-size:11.5px;color:var(--text-light);margin-top:8px;line-height:1.65}
+/* About */
+.about{background:var(--cream-warm);border:1px solid var(--gold-border);border-radius:6px;padding:22px 24px;margin:40px 0 0}
+.about .lbl{font-family:var(--display);color:var(--gold);letter-spacing:.22em;font-size:12px;text-transform:uppercase;margin-bottom:8px}
+.about h3{font-family:var(--serif);font-size:16px;color:var(--green);margin-bottom:8px}
+.about p{font-size:13px;color:var(--text-mid);line-height:1.8;margin:0 0 8px}
+.about ul{margin:6px 0 0 1.1em;font-size:12.5px;color:var(--text-mid);line-height:1.85}
+/* 印刷（PDF）用 */
+@media print{
+  body{background:#fff}
+  .hero,.foot{background:#fff!important}
+  .hero .logo-w,.foot .logo-w{filter:none!important}
+  .hero .kicker,.hero-by strong,.h2 .no,.foot .yr{color:var(--gold)!important}
+  h1,.hero-by,.hero-meta,.foot .d{color:var(--green)!important}
+  .fig,.formula-row,.pull,.box,.about,.scn{box-shadow:none!important;break-inside:avoid;page-break-inside:avoid}
+  .pull{background:#fff!important;border:1px solid var(--gold)}
+  .pull .big{color:var(--green)!important}.pull .cap,.pull .cap strong{color:var(--text)!important}
+  .formula-step.gold{background:#fff!important;border:1px solid var(--gold)}
+  .formula-step.gold .fs-big{color:var(--green)!important}
+  .formula-step.gold .fs-cap,.formula-step.gold .fs-sub{color:var(--text-mid)!important}
+}
 </style>
 </head>
 <body>
@@ -129,7 +171,7 @@ h1 .pt{color:var(--gold)}
       <span><i style="background:rgba(197,165,114,0.28)"></i>±1σ（13.0〜18.1倍）</span>
     </div>
     <div class="canvas-box" style="height:250px"><canvas id="chartPER"></canvas></div>
-    <div class="fig-note"><b>読み方：</b>予想PERは過去おおむね11〜19倍を推移。足元の12.7倍は5年平均（15.5倍）を下回り、割安ゾーンにある。一方でEPSは約20%成長見込み。「割安なのに高成長」という状態。※年次PERは概算・イメージ。出所：ブローカー各社集計・CQC投資調査部（5年平均15.5倍／±1σ[13.0,18.1]は実測値）。</div>
+    <div class="fig-note"><b>読み方：</b>予想PERは過去おおむね11〜19倍を推移。足元の12.7倍は5年平均（15.5倍）を下回り、割安ゾーンにある。一方でEPSは約20%成長見込み。「割安なのに高成長」という状態。なお本コラムの強気シナリオでは、2045年の想定PERを新興国標準の約16倍に置いている（現在12.7倍からの回帰）。※年次PERは概算・イメージ。出所：ブローカー各社集計・CQC投資調査部（5年平均15.5倍／±1σ[13.0,18.1]は実測値）。</div>
   </div>
 
   <p>かつて日本でも、日経平均が長くデフレの重石を背負い、「上がってもどうせ続かない」という逆張り的な発想が根付いていました。ベトナム株にも似た空気があります。しかし、後述するように、ベトナム経済の「地力」はこの20年で大きく変わりました。株価水準の高低ではなく、その裏にある利益成長を見れば、評価はまったく変わってきます。</p>
@@ -154,6 +196,34 @@ h1 .pt{color:var(--gold)}
   <div class="pull">
     <div class="big">6.7倍 × 1.6倍 ≒ 10.8倍</div>
     <div class="cap">利益成長（名目GDP 20年で6.7倍）× 昇格によるリレーティング（約1.6倍）。<br>現在のVN-Index 約1,850ポイント × 10.8倍 ＝ <strong>約20,000ポイント</strong>（2045年）。年率にすると約12.6%、配当込みなら約15%の複利成長です。</div>
+  </div>
+
+  <div class="fig fig-hero">
+    <div class="fig-t">20,000ポイントの算式</div>
+    <div class="fig-s">VN-Index ＝ 企業利益 × 評価（PER・市場の深さ）。2つの掛け算に分解して読む</div>
+    <div class="formula-row">
+      <div class="formula-step"><div class="fs-cap">現在（2026/7）</div><div class="fs-big">1,850</div><div class="fs-sub">ポイント<br>予想PER 12.7倍</div></div>
+      <div class="formula-op">×</div>
+      <div class="formula-step"><div class="fs-cap">① 利益成長</div><div class="fs-big">6.7倍</div><div class="fs-sub">名目GDP 年10%×20年<br>（実質7%＋物価3%）</div></div>
+      <div class="formula-op">×</div>
+      <div class="formula-step"><div class="fs-cap">② 評価の見直し</div><div class="fs-big">1.6倍</div><div class="fs-sub">PER 12.7→約16倍<br>＋時価総額/GDP 6割→9割台</div></div>
+      <div class="formula-op">＝</div>
+      <div class="formula-step gold"><div class="fs-cap">2045年</div><div class="fs-big">20,000</div><div class="fs-sub">ポイント<br>現在の約10.8倍</div></div>
+    </div>
+    <div class="fig-note"><b>読み方：</b>指数の伸びは「企業利益がどれだけ増えるか（①）」×「その利益に市場が払う評価がどれだけ上がるか（②）」に分解できる。①は経済成長そのもの、②はフロンティア市場ゆえの割安（PER12.7倍）が昇格で是正される分。いずれも他国の昇格前後の事例の範囲内。出所：CQC投資調査部推計。</div>
+  </div>
+
+  <div class="scn">
+    <table>
+      <thead><tr><th>2045年時点の前提</th><th>弱気</th><th>基本</th><th class="main">強気（本コラムの主役）</th></tr></thead>
+      <tbody>
+        <tr><td class="lbl">名目GDP成長（年率）</td><td>約7%</td><td>約8〜9%</td><td class="main">約10%</td></tr>
+        <tr><td class="lbl">市場の格上げ</td><td>FTSEにとどまる</td><td>FTSE＋MSCI一部</td><td class="main">FTSE＋MSCI完了</td></tr>
+        <tr><td class="lbl">想定PER</td><td>約13倍</td><td>約14〜15倍</td><td class="main">約16倍</td></tr>
+        <tr><td class="lbl">VN-Index（2045年）</td><td>約12,000</td><td>約16,000</td><td class="main">約20,000</td></tr>
+      </tbody>
+    </table>
+    <div class="scn-note">いずれもCQC投資調査部推計。本コラムは「強気シナリオ」を主役に据えている。現在（約1,850pt）比の倍率＝弱気 約6.5倍／基本 約8.6倍／強気 約10.8倍。弱気でも現在の約6.5倍に相当する。</div>
   </div>
 
   <div class="fig">
@@ -193,7 +263,7 @@ h1 .pt{color:var(--gold)}
       <span><i style="background:#C5A572"></i>VN-Index（右軸・pt）</span>
     </div>
     <div class="canvas-box" style="height:260px"><canvas id="chartGDPvni"></canvas></div>
-    <div class="fig-note"><b>読み方：</b>過去20年で名目GDPは約9倍（$58B→$527B）、VN-Indexは約6倍（307→1,850）に拡大。経済規模の成長が、時間をおいて株価に映し出されてきた。出所：World Bank・IMF（名目GDP）、HOSE（VN-Index、年末概算値）。</div>
+    <div class="fig-note"><b>読み方：</b>過去20年で名目GDPは約9倍（$58B→$527B）、VN-Indexは約6倍（307→1,850）に拡大。経済規模の成長が、時間をおいて株価に映し出されてきた。※両者の連動は相関であり、直接の因果を示すものではない。出所：World Bank・IMF（名目GDP）、HOSE（VN-Index、年末概算値）。</div>
   </div>
 
   <p>とりわけ銀行セクターは、金融深化（預金中心から与信・投資への広がり）の初期段階にあります。与信残高はすでに2025年に前年比約18%伸びており、経済成長を「増幅」して利益に変える立場にあります。内需の拡大が続く限り、当面はこのセクターが指数のけん引役になると見ています。</p>
@@ -215,7 +285,7 @@ h1 .pt{color:var(--gold)}
       <span><i style="background:#0A5638"></i>与信成長率（右軸・%）</span>
     </div>
     <div class="canvas-box" style="height:250px"><canvas id="chartCredit"></canvas></div>
-    <div class="fig-note"><b>読み方：</b>2022〜2023年の不動産調整で与信の伸びは鈍化したが、2024年（15.1%）・2025年（約18%）と回復。与信の再加速に沿って、株価も底を打って切り上がってきた。出所：SBV（与信成長率、2024年=15.08%は確定値）、HOSE（VN-Index年末概算値）、CQC投資調査部。</div>
+    <div class="fig-note"><b>読み方：</b>2022〜2023年の不動産調整で与信の伸びは鈍化したが、2024年（15.1%）・2025年（約18%）と回復。与信の再加速に沿って、株価も底を打って切り上がってきた。※与信と株価の関係は金利・不動産・市場心理などにも左右され、相関は必ずしも因果を意味しない。出所：SBV（与信成長率、2024年=15.08%は確定値）、HOSE（VN-Index年末概算値）、CQC投資調査部。</div>
   </div>
 
   <p>与信サイクルについても、現在地は悪くありません。2022〜2023年の不動産調整を経て、与信の伸びは2025年に約18%まで回復しました。銀行のPBR（株価純資産倍率）は1倍台前半と依然として控えめで、サイクルはむしろ「底を打って中盤に入りつつある」局面と捉えています。もちろん、極端な金利上昇や与信の急反転はリスクですが、インフレが業績拡大を後押ししている現状を踏まえると、それが長期の上昇トレンドそのものを崩す展開は、想定しにくいと考えています。</p>
@@ -233,6 +303,19 @@ h1 .pt{color:var(--gold)}
   <p>2つ、お伝えしたいことがあります。1つは、<strong>一括ではなく、段階的に配分する</strong>こと。昇格に伴うパッシブ資金は、実際に投資できる銘柄が限られるなかで集中しやすく、短期的には需給が主導する行き過ぎ（オーバーシュート）も起こり得ます。時間を分けて入ることで、こうした振れをならすことができます。</p>
   <p>もう1つは、<strong>ベトナム株に集中せず、資産の一部を米ドルなど他の通貨・資産に分散して持つ</strong>こと。強気シナリオを描きつつも、為替や地政学で想定が外れたときに、資産全体の目減りを和らげることができます。</p>
   <p>ベトナムは、20年単位で捉えるべき国です。ドイモイから40年、市場経済化と産業高度化を着実に進め、いま「仕上げの20年」の入口に立っています。そして2026年9月の新興国入りという、20年に一度のカタリストが、まさに目前に迫っています。20,000ポイントという数字は、その長い道のりの「到達点のイメージ」です。大切なのは、目先の水準ではなく、この構造変化の初動に、無理のない形で参加することだと考えています。</p>
+
+  <div class="about">
+    <div class="lbl">About CQC</div>
+    <h3>CQC（Capital Quest Corporation）について</h3>
+    <p>CQCは、ベトナムを中心とした東南アジアのマクロ・株式市場・セクター動向リサーチ（Asian Markets Intelligence）を、機関投資家・国内事業会社向けに提供しています。CFHベトナム現地法人と連携し、以下を手がけています。</p>
+    <ul>
+      <li>ベトナム経済・株式市場リサーチ</li>
+      <li>東南アジアマクロ・セクター調査</li>
+      <li>クロスボーダーM&amp;A候補先スクリーニング</li>
+      <li>機関投資家・事業会社向け定期レポート</li>
+    </ul>
+    <p style="margin-top:10px">本コラムは、当社投資調査部が公開情報および自社分析に基づき作成した情報提供資料であり、特定の金融商品の勧誘・投資助言を目的とするものではありません。</p>
+  </div>
 
 </section>
 </div>
