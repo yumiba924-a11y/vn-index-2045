@@ -128,6 +128,8 @@ h1 .pt{color:var(--gold)}
   .formula-step.gold .fs-big{color:var(--green)!important}
   .formula-step.gold .fs-cap,.formula-step.gold .fs-sub{color:var(--text-mid)!important}
 }
+/* 大画面ではデフォルト200%表示（狭い画面は横スクロール防止のため等倍） */
+@media(min-width:1500px){body{zoom:2}}
 </style>
 </head>
 <body>
