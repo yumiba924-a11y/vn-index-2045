@@ -733,6 +733,9 @@ document.addEventListener('DOMContentLoaded', function () {
   whenChart(function (Chart) {
     Chart.defaults.font.family = "'Hiragino Sans','Yu Gothic Medium',YuGothic,Meiryo,'Noto Sans JP',system-ui,sans-serif";
     Chart.defaults.color = AX;
+    // body{zoom:2}（min-width:1500px）でcanvasが2倍拡大されボケるため、描画解像度をズーム分引き上げる
+    var _zoomBoost = (window.matchMedia && window.matchMedia('(min-width:1500px)').matches) ? 2 : 1;
+    Chart.defaults.devicePixelRatio = (window.devicePixelRatio || 1) * _zoomBoost;
     var anim = animate ? { duration: 900, easing: 'easeOutCubic' } : false;
     var C = function (id) { var el = document.getElementById(id); return el ? el.getContext('2d') : null; };
 
